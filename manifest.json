@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Voz Ativa Extensão",
+  "version": "1.0",
+  "description": "Transcrição de áudio para acessibilidade",
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg",
+      "48": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg"
+    }
+  }
+}
