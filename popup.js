@@ -7,69 +7,89 @@ const btnPdf = document.getElementById('btn-pdf');
 const caixa = document.getElementById('caixa');
 const selectCategoria = document.getElementById('categoria');
 
-btnGravar.addEventListener('click', () => {
+btnGravar.addEventListener('click', async () => {
     if (!gravando) {
-        const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!Speech) {
-            alert("Navegador não suportado");
-            return;
-        }
-        
-        recognition = new Speech();
-        recognition.lang = 'pt-BR';
-        recognition.continuous = true;
-        recognition.interimResults = true;
-
-        recognition.onresult = (event) => {
-            let textoTemporario = "";
-            for (let i = event.resultIndex; i < event.results.length; i++) {
-                if (event.results[i].isFinal) {
-                    textoAcumulado += event.results[i][0].transcript + " ";
-                } else {
-                    textoTemporario = event.results[i][0].transcript;
-                }
+        try {
+            // Solicita permissão de áudio explicitamente
+            await navigator.mediaDevices.getUserMedia({ audio: true });
+            
+            const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!Speech) {
+                alert("Seu navegador não suporta transcrição de voz.");
+                return;
             }
-            caixa.innerText = textoAcumulado + textoTemporario;
-            caixa.scrollTop = caixa.scrollHeight; // Rola para baixo sozinho
-        };
 
-        recognition.start();
-        btnGravar.innerText = "PARAR TRANSCRIÇÃO 🛑";
-        btnGravar.classList.add('gravando');
-        gravando = true;
+            recognition = new Speech();
+            recognition.lang = 'pt-BR';
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onstart = () => {
+                btnGravar.innerText = "PARAR TRANSCRIÇÃO 🛑";
+                btnGravar.classList.add('gravando');
+                caixa.innerText = "Ouvindo... Pode falar!";
+                gravando = true;
+            };
+
+            recognition.onresult = (event) => {
+                let textoTemporario = "";
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        textoAcumulado += event.results[i][0].transcript + " ";
+                    } else {
+                        textoTemporario = event.results[i][0].transcript;
+                    }
+                }
+                caixa.innerText = textoAcumulado + textoTemporario;
+                caixa.scrollTop = caixa.scrollHeight;
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Erro no reconhecimento:", event.error);
+                if(event.error === 'not-allowed') alert("Acesso ao microfone negado! Clique no cadeado da barra de endereços.");
+                parar();
+            };
+
+            recognition.start();
+        } catch (err) {
+            alert("Para funcionar, você precisa permitir o uso do microfone.");
+        }
     } else {
-        recognition.stop();
-        btnGravar.innerText = "INICIAR TRANSCRIÇÃO 🎤";
-        btnGravar.classList.remove('gravando');
-        gravando = false;
+        parar();
     }
 });
 
+function parar() {
+    if (recognition) recognition.stop();
+    btnGravar.innerText = "INICIAR TRANSCRIÇÃO 🎤";
+    btnGravar.classList.remove('gravando');
+    gravando = false;
+}
+
 btnPdf.addEventListener('click', () => {
-    if (!textoAcumulado && caixa.innerText.length < 10) {
-        alert("Não há conteúdo para gerar o PDF.");
+    const conteudo = textoAcumulado || caixa.innerText;
+    if (conteudo.length < 5 || conteudo.includes("Clique em iniciar")) {
+        alert("Não há texto suficiente para gerar o PDF.");
         return;
     }
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const dataAtual = new Date().toLocaleDateString('pt-BR');
-    const categoria = selectCategoria.value;
-
-    // Estilização do PDF (Igual ao seu App)
-    doc.setFontSize(22);
-    doc.setTextColor(107, 112, 92); // Verde Oliva
-    doc.text("Voz Ativa - Relatório", 20, 20);
+    
+    doc.setFontSize(20);
+    doc.setTextColor(107, 112, 92);
+    doc.text("Relatório Voz Ativa", 20, 20);
     
     doc.setFontSize(12);
-    doc.setTextColor(51, 51, 51);
-    doc.text(`Data: ${dataAtual} | Categoria: ${categoria}`, 20, 30);
+    doc.setTextColor(100);
+    doc.text(`Data: ${dataAtual} | Categoria: ${selectCategoria.value}`, 20, 30);
     doc.line(20, 35, 190, 35);
 
     doc.setFontSize(11);
-    const textoParaPdf = textoAcumulado || caixa.innerText;
-    const splitText = doc.splitTextToSize(textoParaPdf, 170);
+    doc.setTextColor(0);
+    const splitText = doc.splitTextToSize(conteudo, 170);
     doc.text(splitText, 20, 45);
 
-    doc.save(`Extensao_VozAtiva_${dataAtual}.pdf`);
+    doc.save(`Aula_${dataAtual}.pdf`);
 });

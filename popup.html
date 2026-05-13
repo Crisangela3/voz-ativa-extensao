@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        body { width: 350px; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #F5F1E3; }
-        h2 { color: #6B705C; text-align: center; margin-top: 0; }
+        body { width: 100%; min-width: 300px; padding: 20px; font-family: sans-serif; background-color: #F5F1E3; box-sizing: border-box; }
+        h2 { color: #6B705C; text-align: center; }
         #caixa { 
-            width: 100%; height: 200px; background: white; 
+            width: 100%; height: 300px; background: white; 
             border-radius: 15px; border: 1px solid #ccc; 
             padding: 10px; margin-bottom: 15px; overflow-y: auto;
-            font-size: 14px; line-height: 1.4; color: #333;
-            box-sizing: border-box;
+            font-size: 14px; color: #333; box-sizing: border-box;
         }
         select, button { 
             width: 100%; padding: 12px; border-radius: 10px; border: none;
             margin-bottom: 10px; font-weight: bold; cursor: pointer;
         }
-        select { background: #fff; border: 1px solid #D4AF37; color: #6B705C; }
+        select { background: #fff; border: 1px solid #D4AF37; }
         #btn-gravar { background-color: #6B705C; color: white; }
         #btn-pdf { background-color: #D4AF37; color: white; }
         .gravando { background-color: #B58463 !important; }
     </style>
 </head>
 <body>
-    <h2>Voz Ativa Extensão</h2>
+    <h2>Voz Ativa</h2>
     
     <select id="categoria">
         <option>Aula / Palestra</option>
@@ -31,7 +30,7 @@
         <option>Conversas / Diversas</option>
     </select>
 
-    <div id="caixa">O texto da aula aparecerá aqui...</div>
+    <div id="caixa">Clique em iniciar e fale para testar...</div>
     
     <button id="btn-gravar">INICIAR TRANSCRIÇÃO 🎤</button>
     <button id="btn-pdf">GERAR RELATÓRIO PDF 📄</button>

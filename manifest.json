@@ -2,6 +2,7 @@
   "manifest_version": 3,
   "name": "Voz Ativa Extensao",
   "version": "1.1",
+  "description": "Transcrição para acessibilidade em tempo real.",
   "permissions": ["sidePanel", "activeTab"],
   "action": {
     "default_title": "Abrir Voz Ativa"
