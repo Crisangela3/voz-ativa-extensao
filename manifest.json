@@ -1,9 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Voz Ativa Extensao",
-  "version": "1.0",
+  "version": "1.1",
+  "permissions": ["sidePanel", "activeTab"],
   "action": {
-    "default_popup": "popup.html"
+    "default_title": "Abrir Voz Ativa"
   },
-  "permissions": ["activeTab", "tabCapture", "storage"]
+  "side_panel": {
+    "default_path": "popup.html"
+  }
 }
