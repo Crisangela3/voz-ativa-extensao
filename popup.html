@@ -1,58 +1,42 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <style>
-    body { width: 350px; padding: 20px; font-family: sans-serif; background-color: #F5F1E3; }
-    h2 { color: #6B705C; text-align: center; }
-    #caixa-texto { 
-      width: 100%; height: 200px; background: white; 
-      border-radius: 15px; border: 1px solid #ccc; 
-      padding: 10px; margin-bottom: 15px; overflow-y: auto;
-      font-size: 16px;
-    }
-    button { 
-      width: 100%; padding: 15px; border-radius: 25px; border: none;
-      background-color: #B58463; color: white; font-weight: bold; cursor: pointer;
-    }
-    .gravando { background-color: #e63946 ! final; }
-  </style>
+    <meta charset="UTF-8">
+    <style>
+        body { width: 350px; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #F5F1E3; }
+        h2 { color: #6B705C; text-align: center; margin-top: 0; }
+        #caixa { 
+            width: 100%; height: 200px; background: white; 
+            border-radius: 15px; border: 1px solid #ccc; 
+            padding: 10px; margin-bottom: 15px; overflow-y: auto;
+            font-size: 14px; line-height: 1.4; color: #333;
+            box-sizing: border-box;
+        }
+        select, button { 
+            width: 100%; padding: 12px; border-radius: 10px; border: none;
+            margin-bottom: 10px; font-weight: bold; cursor: pointer;
+        }
+        select { background: #fff; border: 1px solid #D4AF37; color: #6B705C; }
+        #btn-gravar { background-color: #6B705C; color: white; }
+        #btn-pdf { background-color: #D4AF37; color: white; }
+        .gravando { background-color: #B58463 !important; }
+    </style>
 </head>
 <body>
-  <h2>Voz Ativa Extensão</h2>
-  <div id="caixa-texto">Clique no botão para transcrever...</div>
-  <button id="btn-gravar">INICIAR TRANSCRIÇÃO 🎤</button>
+    <h2>Voz Ativa Extensão</h2>
+    
+    <select id="categoria">
+        <option>Aula / Palestra</option>
+        <option>Saúde / Médica</option>
+        <option>Conversas / Diversas</option>
+    </select>
 
-  <script src="popup.js"></script>
-</body>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    body { width: 350px; padding: 20px; font-family: sans-serif; background-color: #F5F1E3; }
-    h2 { color: #6B705C; text-align: center; }
-    #caixa-texto { 
-      width: 100%; height: 200px; background: white; 
-      border-radius: 15px; border: 1px solid #ccc; 
-      padding: 10px; margin-bottom: 15px; overflow-y: auto;
-      font-size: 16px;
-    }
-    button { 
-      width: 100%; padding: 15px; border-radius: 25px; border: none;
-      background-color: #B58463; color: white; font-weight: bold; cursor: pointer;
-    }
-    .gravando { background-color: #e63946 ! final; }
-  </style>
-</head>
-<body>
-  <h2>Voz Ativa Extensão</h2>
-  <div id="caixa-texto">Clique no botão para transcrever...</div>
-  <button id="btn-gravar">INICIAR TRANSCRIÇÃO 🎤</button>
+    <div id="caixa">O texto da aula aparecerá aqui...</div>
+    
+    <button id="btn-gravar">INICIAR TRANSCRIÇÃO 🎤</button>
+    <button id="btn-pdf">GERAR RELATÓRIO PDF 📄</button>
 
-  <script src="popup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="popup.js"></script>
 </body>
->>>>>>> ee702a968cedb91ee6182a47f99638cbcd440839
 </html>
